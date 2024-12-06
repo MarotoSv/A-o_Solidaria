@@ -1,125 +1,81 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ação Solidária</title>
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/global-style.css">
-  <link rel="icon" href="./assets/img/HelpingHands.png">
-</head>
-
-<body>
-  <header class="header">
-    <nav>
-      <div class="nav__bar">
-        <div class="logo">
-          <a href="#"><img src="./assets/img/Logo.png" alt="logo" /></a>
-        </div>
-        <div class="nav_menu_btn" id="menu-btn">
-          <i class="bx bx-menu"></i>
-        </div>
-      </div>
-      <ul class="nav__links" id="nav-links">
-        <li><a href="#home">Início</a></li>
-        <li><a href="#about">Sobre Nós</a></li>
-        <li><a href="#service">Trabalho</a></li>
-        <li><a href="#contact">Contato</a></li>
-      </ul>
-    </nav>
-    <div class="section_container header_container" id="home">
-      <h1>Seja a Mudança<br />Na Vida de <span>Quem Precisa</span>.</h1>
+<section class="section_container nextPage_container">
+  <div class="nextPage">
+    <p class="nextPage__title">Transforme vidas com suas ações!</p>
+    <div class="input_group input_btn">
+      <!-- Botão de inscrição -->
+      <button class="btn" onclick="showVolunteerForm()">Seja Voluntário</button>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- Seção de Cadastro de Voluntário -->
-  <section class="section_container volunteer_container">
-    <div class="volunteer_form">
-      <p class="volunteer_form__title">Cadastre-se como Voluntário</p>
-      <form id="volunteer-form">
-        <label for="name">Nome Completo:</label>
-        <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+<!-- Formulário para cadastro de voluntário -->
+<section class="section_container volunteer_form_container" id="volunteer-form-container" style="display: none;">
+  <div class="volunteer_form">
+    <p class="volunteer_form__title">Cadastre-se como Voluntário</p>
+    <form id="volunteer-form">
+      <label for="name">Nome Completo:</label>
+      <input type="text" id="name" name="name" required placeholder="Seu nome completo">
 
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required placeholder="Seu e-mail">
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required placeholder="Seu e-mail">
 
-        <label for="phone">Telefone:</label>
-        <input type="tel" id="phone" name="phone" required placeholder="Seu telefone">
+      <label for="phone">Telefone:</label>
+      <input type="tel" id="phone" name="phone" required placeholder="Seu telefone">
 
-        <label for="message">Mensagem:</label>
-        <textarea id="message" name="message" placeholder="Por que deseja ser voluntário?" required></textarea>
+      <label for="message">Mensagem:</label>
+      <textarea id="message" name="message" placeholder="Por que deseja ser voluntário?" required></textarea>
 
-        <button type="submit" class="btn">Cadastrar como Voluntário</button>
-      </form>
-    </div>
-  </section>
+      <button type="submit" class="btn">Cadastrar como Voluntário</button>
+    </form>
+  </div>
+</section>
 
-  <!-- Rodapé -->
-  <footer class="footer" id="contact">
-    <div class="section_container footer_container">
-      <div class="footer__col">
-        <div class="logo">
-          <a href="#home"><img src="./assets/img/Logo.png" alt="logo" /></a>
-        </div>
-      </div>
-      <div class="footer__col">
-        <h4>CONTATE-NOS</h4>
-        <div class="social-icons">
-          <a class="homeIcon" href="#"><i class="bx bxl-facebook"></i></a>
-          <a class="homeIcon" href="#"><i class="bx bxl-instagram"></i></a>
-          <a class="homeIcon" href="#"><i class="bx bxl-twitter"></i></a>
-          <a class="homeIcon" href="#"><i class="bx bxl-youtube"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="footer__bar">
-      Copyright © 2024 Ação Solidária. Todos os direitos reservados. Organização sem fins lucrativos.
-    </div>
-  </footer>
+<script>
+  // Função para exibir o formulário de voluntário
+  function showVolunteerForm() {
+    document.getElementById('volunteer-form-container').style.display = 'block';
+  }
 
-  <script>
-    // Lidar com o envio do formulário
-    document.getElementById('volunteer-form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Previne o envio tradicional
+  // Lidar com o envio do formulário
+  document.getElementById('volunteer-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Previne o envio tradicional
 
-      // Obtém os valores do formulário
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const message = document.getElementById('message').value;
+    // Obtém os valores do formulário
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const message = document.getElementById('message').value;
 
-      // Objeto com os dados do voluntário
-      const volunteerData = {
-        name: name,
-        email: email,
-        phone: phone,
-        message: message
-      };
+    // Objeto com os dados do voluntário
+    const volunteerData = {
+      name: name,
+      email: email,
+      phone: phone,
+      message: message
+    };
 
-      // Enviar dados para o servidor (Back-End)
-      fetch('http://localhost:3000/api/volunteers', { // URL do seu endpoint
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(volunteerData) // Envia os dados em formato JSON
-      })
-      .then(response => response.json()) // Espera a resposta do servidor em JSON
-      .then(data => {
-        if (data.success) {
-          alert('Cadastro realizado com sucesso!');
-          document.getElementById('volunteer-form').reset(); // Limpa o formulário
-        } else {
-          alert('Erro ao cadastrar. Tente novamente!');
-        }
-      })
-      .catch((error) => {
-        console.error('Erro:', error);
-        alert('Erro ao enviar dados. Tente novamente!');
-      });
+    // Enviar dados para o servidor (Back-End)
+    fetch('http://localhost:3000/api/volunteers', { // URL do seu endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(volunteerData) // Envia os dados em formato JSON
+    })
+    .then(response => response.json()) // Espera a resposta do servidor em JSON
+    .then(data => {
+      if (data.success) {
+        alert('Cadastro realizado com sucesso!');
+        document.getElementById('volunteer-form').reset(); // Limpa o formulário
+        document.getElementById('volunteer-form-container').style.display = 'none'; // Esconde o formulário
+      } else {
+        alert('Erro ao cadastrar. Tente novamente!');
+      }
+    })
+    .catch((error) => {
+      console.error('Erro:', error);
+      alert('Erro ao enviar dados. Tente novamente!');
     });
-  </script>
-</body>
+  });
+</script>
 
-</html>
