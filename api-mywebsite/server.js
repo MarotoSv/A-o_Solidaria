@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');  // Para processar dados JSON no corp
 
 // Criar o app Express
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3306;
 
 // Configuração do bodyParser para aceitar JSON
 app.use(bodyParser.json());  // Permite receber JSON no corpo das requisições
