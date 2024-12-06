@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url(./pages/homePage.css);
+@import url(./pages/loginAndRegister.css);
+@import url(./pages/donation.css);
+
+:root {
+    --title-font: "Oswald";
+    --text-font: "Roboto";
+
+    --bg-color: #F8FAE5;
+    --shiny: #43766C;
+    --f-color: #76453B;
+    --f-color-hover: #B19470;
+    --white: #ffffff;
+
+    --max-width: 1200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+html,
+body {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--text-font);
+    color: var(--f-color);
+    font-size: 1rem;
+    font-weight: 400;
+}
