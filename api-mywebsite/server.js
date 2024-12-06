@@ -9,10 +9,10 @@ const port = process.env.PORT || 3000;
 
 // Configuração da conexão com o banco de dados MySQL
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST, // Exemplo: 'localhost'
-  user: process.env.DB_USER, // Exemplo: 'root'
-  password: process.env.DB_PASSWORD, // Exemplo: ''
-  database: process.env.DB_NAME // Exemplo: 'sua_base_de_dados'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 // Testar a conexão com o banco
@@ -25,17 +25,21 @@ connection.connect(err => {
   }
 });
 
-// Configuração do Express para aceitar requisições em JSON
+// Middleware para aceitar JSON no corpo das requisições
 app.use(express.json());
 
-// Rota para buscar dados no banco de dados
-app.get('/api/dados', (req, res) => {
-  connection.query('SELECT * FROM sua_tabela', (err, results) => {
+// Rota para cadastrar voluntários
+app.post('/api/volunteers', (req, res) => {
+  const { name, email, phone, message } = req.body;
+
+  // Insira o voluntário no banco de dados MySQL
+  connection.query('INSERT INTO volunteers (name, email, phone, message) VALUES (?, ?, ?, ?)', [name, email, phone, message], (err, results) => {
     if (err) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(200).json(results);
+      return res.status(500).json({ error: err.message });
     }
+
+    // Retornar uma resposta positiva para o frontend
+    res.status(201).json({ success: true, message: 'Voluntário cadastrado com sucesso!' });
   });
 });
 
@@ -43,3 +47,4 @@ app.get('/api/dados', (req, res) => {
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
 });
+
